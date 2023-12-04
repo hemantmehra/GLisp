@@ -7,7 +7,8 @@ namespace LISP {
     enum Object_Type
     {
         T_Integer,
-        T_FLOAT
+        T_FLOAT,
+        T_NIL
     };
 
     class Object
@@ -24,10 +25,23 @@ namespace LISP {
         Object_Type get_type();
         std::string to_string();
         int to_val();
-        Integer add(const Integer);
 
     private:
         int m_val;
+    };
+
+    class Cons: public Object
+    {
+    public:
+        Cons(const Object*, const Object*);
+        Object_Type get_type();
+        std::string to_string();
+        Object* get_car();
+        Object* get_cdr();
+
+    private:
+        Object* m_car;
+        Object* m_cdr;
     };
 }
 
