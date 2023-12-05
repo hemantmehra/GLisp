@@ -7,22 +7,23 @@ namespace LISP {
     enum Object_Type
     {
         T_Integer,
-        T_FLOAT,
+        T_Float,
+        T_Cons,
         T_NIL
     };
 
     class Object
     {
     public:
-        std::string to_string();
-        virtual Object_Type get_type() = 0;
+        virtual std::string to_string();
+        virtual Object_Type get_type() const = 0;
     };
 
     class Integer: public Object
     {
     public:
         Integer(const int i);
-        Object_Type get_type();
+        Object_Type get_type() const;
         std::string to_string();
         int to_val();
 
@@ -33,8 +34,8 @@ namespace LISP {
     class Cons: public Object
     {
     public:
-        Cons(const Object*, const Object*);
-        Object_Type get_type();
+        Cons(Object&, Object&);
+        Object_Type get_type() const;
         std::string to_string();
         Object* get_car();
         Object* get_cdr();

@@ -9,7 +9,7 @@ namespace LISP {
         return "[INTEGER] " + std::to_string(m_val);
     }
 
-    Object_Type Integer::get_type()
+    Object_Type Integer::get_type() const
     {
         return T_Integer;
     }
