@@ -4,5 +4,5 @@ project(CPP_LISP)
 
 include_directories(.)
 
-add_executable(main main.cpp Integer.cpp Cons.cpp)
+add_executable(main main.cpp Integer.cpp Cons.cpp Environment.cpp)
 

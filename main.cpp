@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include <Environment.h>
 #include <Object.h>
 
 std::string LISP::Object::to_string()
@@ -22,6 +23,12 @@ int main()
     LISP::Integer* i1 = (LISP::Integer*) o1;
     std::cout << cons_a.to_string() << std::endl;
     std::cout << i1->to_val() << std::endl;
+
+    LISP::Environment env;
+    env.set("a1", &cons_a);
+
+    std::cout << "Environment" << std::endl;
+    std::cout << env.get("a1")->to_string() << std::endl;
     return 0;
 }
 
