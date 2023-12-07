@@ -3,6 +3,10 @@
 #include <string>
 #include <Environment.h>
 #include <Object.h>
+#include <GObject.h>
+
+#define INTEGER LISP::Integer
+#define CONS LISP::Cons
 
 std::string LISP::Object::to_string()
 {
@@ -29,6 +33,11 @@ int main()
 
     std::cout << "Environment" << std::endl;
     std::cout << env.get("a1")->to_string() << std::endl;
+
+    LISP::GObject ob1(42);
+    std::cout << ob1.is_integer() << std::endl;
+    std::cout << ob1.is_nil() << std::endl;
+    std::cout << ob1.as_integer() << std::endl;
     return 0;
 }
 
