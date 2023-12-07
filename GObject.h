@@ -26,14 +26,18 @@ namespace LISP {
         bool is_cons() const { return m_type == Type::Cons; }
         bool is_symbol() const { return m_type == Type::Symbol; }
         bool is_boolean() const { return m_type == Type::Boolean; }
-
         
         GObject(int32_t i) : m_type(Type::Integer)
         {
             m_value.as_integer = i;
         }
-        
 
+        GObject(GObject* v_car, GObject* v_cdr) : m_type(Type::Cons)
+        {
+            m_value.as_cons[0] = v_car;
+            m_value.as_cons[1] = v_cdr;
+        }
+        
         Type type() const { return m_type; }
 
         int32_t as_integer() const
@@ -41,6 +45,19 @@ namespace LISP {
             assert(type() == Type::Integer);
             return m_value.as_integer;
         }
+
+        GObject* as_cons_car() const
+        {
+            assert(type() == Type::Cons);
+            return m_value.as_cons[0];
+        }
+
+        GObject* as_cons_cdr() const
+        {
+            assert(type() == Type::Cons);
+            return m_value.as_cons[1];
+        }
+
     private:
         Type m_type{Type::NIL};
 
