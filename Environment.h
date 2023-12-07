@@ -3,18 +3,18 @@
 
 #include <string>
 #include <unordered_map>
-#include <Object.h>
+#include <GObject.h>
 
 namespace LISP {
     class Environment
     {
     public:
-        Object* get(const std::string);
-        void set(const std::string, Object*);
+        GObject* get(const std::string);
+        void set(const std::string, GObject*);
         bool find(const std::string);
 
     private:
-        std::unordered_map<std::string, Object*> m_env;
+        std::unordered_map<std::string, GObject*> m_env;
     };
 }
 

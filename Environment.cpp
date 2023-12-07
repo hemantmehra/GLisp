@@ -2,12 +2,12 @@
 #include <Environment.h>
 
 namespace LISP {
-    Object* Environment::get(const std::string k)
+    GObject* Environment::get(const std::string k)
     {
         return m_env.find(k)->second;
     }
 
-    void Environment::set(const std::string k, Object* v)
+    void Environment::set(const std::string k, GObject* v)
     {
         m_env[k] = v;
     }
