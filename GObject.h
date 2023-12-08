@@ -37,7 +37,7 @@ namespace LISP {
 
         bool is_self_eval() const {
             if (m_type == Type::Integer) return true;
-            if (m_type == Type::Primitive_Proc) return true;
+            // if (m_type == Type::Primitive_Proc) return true;
             return false;
         }
         
@@ -55,6 +55,11 @@ namespace LISP {
         {
             m_value.as_cons[0] = v_car;
             m_value.as_cons[1] = v_cdr;
+        }
+
+        GObject(std::string *sym) : m_type(Type::Symbol)
+        {
+            m_value.as_symbol = sym;
         }
         
         Type type() const { return m_type; }
@@ -81,6 +86,12 @@ namespace LISP {
         {
             assert(type() == Type::Cons);
             return m_value.as_cons[1];
+        }
+
+        std::string* as_symbol() const
+        {
+            assert(type() == Type::Symbol);
+            return m_value.as_symbol;
         }
 
     private:

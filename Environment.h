@@ -9,12 +9,12 @@ namespace LISP {
     class Environment
     {
     public:
-        GObject* get(const std::string);
-        void set(const std::string, GObject*);
-        bool find(const std::string);
+        GObject* get(GObject*);
+        void set(GObject*, GObject*);
+        bool find(GObject*);
 
     private:
-        std::unordered_map<std::string, GObject*> m_env;
+        std::unordered_map<GObject*, GObject*> m_env;
     };
 }
 

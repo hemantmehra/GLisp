@@ -6,6 +6,9 @@ namespace LISP {
     GObject* Interpreter::eval(GObject* exp, Environment* env)
     {
         if (exp->is_self_eval()) return exp;
+        else if (exp->is_symbol()) {
+            return env->get(exp);
+        }
         else {
             assert(exp->is_cons());
             return apply(eval(exp->as_cons_car(), env), exp->as_cons_cdr());

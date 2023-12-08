@@ -19,12 +19,14 @@ int main()
     LISP::Interpreter interpreter;
     LISP::GObject ob1(42), ob2(17);
     LISP::Environment env;
-    env.set("a1", &ob1);
+    std::string s("add");
+    LISP::GObject sym_add(&s);
 
     LISP::GObject ob3(&ob1, &ob2);
     LISP::GObject ob4(LISP::GObject::Primitive_Proc::ADD_OP);
 
-    LISP::GObject ob5(&ob4, &ob3);
+    env.set(&sym_add, &ob4);
+    LISP::GObject ob5(&sym_add, &ob3);
     assert(ob5.is_cons());
     LISP::GObject* result = interpreter.eval(&ob5, &env);
 
