@@ -14,7 +14,7 @@ namespace LISP {
         bool find(GObject*);
 
     private:
-        std::unordered_map<GObject*, GObject*> m_env;
+        std::unordered_map<std::string*, GObject*> m_env;
     };
 }
 

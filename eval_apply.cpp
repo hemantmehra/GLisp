@@ -28,11 +28,19 @@ namespace LISP {
 
     GObject* Interpreter::apply_primitive_proc(GObject* proc, GObject* args)
     {
-        if (proc->as_primitive_proc() == GObject::Primitive_Proc::ADD_OP) {
+        if (proc->as_primitive_proc() == GObject::Primitive_Proc::ADD) {
             assert(args->is_cons());
             GObject* operand1 = args->as_cons_car();
             GObject* operand2 = args->as_cons_cdr();
             GObject* result = new GObject(operand1->as_integer() + operand2->as_integer());
+            return result;
+        }
+
+        if (proc->as_primitive_proc() == GObject::Primitive_Proc::MUL) {
+            assert(args->is_cons());
+            GObject* operand1 = args->as_cons_car();
+            GObject* operand2 = args->as_cons_cdr();
+            GObject* result = new GObject(operand1->as_integer() * operand2->as_integer());
             return result;
         }
 

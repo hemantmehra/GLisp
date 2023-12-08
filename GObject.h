@@ -22,7 +22,8 @@ namespace LISP {
 
         enum class Primitive_Proc
         {
-            ADD_OP
+            ADD,
+            MUL
         };
         
 
