@@ -41,7 +41,9 @@ namespace LISP {
             // if (m_type == Type::Primitive_Proc) return true;
             return false;
         }
-        
+
+        GObject() : m_type(Type::NIL) {}
+
         GObject(int32_t i) : m_type(Type::Integer)
         {
             m_value.as_integer = i;
@@ -87,6 +89,19 @@ namespace LISP {
         {
             assert(type() == Type::Cons);
             return m_value.as_cons[1];
+        }
+
+        void set_cons_car(GObject *a)
+        {
+            assert(type() == Type::Cons);
+            m_value.as_cons[0] = a;
+        }
+
+        
+        void set_cons_cdr(GObject *a)
+        {
+            assert(type() == Type::Cons);
+            m_value.as_cons[1] = a;
         }
 
         std::string* as_symbol() const

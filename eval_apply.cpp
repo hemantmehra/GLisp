@@ -31,7 +31,7 @@ namespace LISP {
         if (proc->as_primitive_proc() == GObject::Primitive_Proc::ADD) {
             assert(args->is_cons());
             GObject* operand1 = args->as_cons_car();
-            GObject* operand2 = args->as_cons_cdr();
+            GObject* operand2 = args->as_cons_cdr()->as_cons_car();
             GObject* result = new GObject(operand1->as_integer() + operand2->as_integer());
             return result;
         }
@@ -39,7 +39,7 @@ namespace LISP {
         if (proc->as_primitive_proc() == GObject::Primitive_Proc::MUL) {
             assert(args->is_cons());
             GObject* operand1 = args->as_cons_car();
-            GObject* operand2 = args->as_cons_cdr();
+            GObject* operand2 = args->as_cons_cdr()->as_cons_car();
             GObject* result = new GObject(operand1->as_integer() * operand2->as_integer());
             return result;
         }
