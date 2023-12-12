@@ -23,6 +23,7 @@ int main()
     LISP::Parser parser;
     
     GObj ob1(42), ob2(17);
+    std::cout << ob1.to_string() << std::endl;
     
     std::string s("add"), s2("mul"), s3("THE_NUMBER");
     GObj sym_add(&s);
@@ -64,6 +65,8 @@ int main()
     LISP::GObject *result2 = interpreter.eval(out, &env);
 
     std::cout << result2->as_integer() << std::endl;
+
+    std::cout << out->to_string() << std::endl;
     
     return 0;
 }

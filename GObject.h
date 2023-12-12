@@ -26,7 +26,7 @@ namespace LISP {
             MUL
         };
         
-
+        std::string to_string();
         bool is_integer() const { return m_type == Type::Integer; }
         bool is_float() const { return m_type == Type::Float; }
         bool is_nil() const { return m_type == Type::NIL; }
