@@ -110,6 +110,18 @@ namespace LISP {
             return m_value.as_symbol;
         }
 
+        std::string* as_string() const
+        {
+            assert(type() == Type::String);
+            return m_value.as_string;
+        }
+
+        bool as_bool() const
+        {
+            assert(type() == Type::Boolean);
+            return m_value.as_bool;
+        }
+
     private:
         Type m_type{Type::NIL};
 

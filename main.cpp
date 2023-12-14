@@ -67,6 +67,12 @@ int main()
     std::cout << result2->as_integer() << std::endl;
 
     std::cout << out->to_string() << std::endl;
+
+    LISP::Tokenizer tokenizer;
+    tokenizer.tokenize("(add a b)");
+
+    std::vector<LISP::Token*>* v1 = tokenizer.get_tokens();
+    
     
     return 0;
 }

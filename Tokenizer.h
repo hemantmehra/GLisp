@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <string>
+#include <vector>
 
 namespace LISP {
     class Token
@@ -59,6 +60,23 @@ namespace LISP {
             int32_t as_integer;
             
         } m_value;
+    };
+
+    class Tokenizer
+    {
+    public:
+        enum class State
+        {
+            Begin,
+            BeginList,
+            BeginSymbol,
+            End
+        };
+        
+        void tokenize(std::string);
+        std::vector<Token*>* get_tokens();
+    private:
+        std::vector<Token*> m_tokens;
     };
 }
 
