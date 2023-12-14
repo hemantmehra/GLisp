@@ -5,14 +5,14 @@
 #include <GObject.h>
 
 namespace LISP {
-    GObject* Parser::parse(std::vector<Token> stream)
+    GObject* Parser::parse(std::vector<Token>* stream)
     {
         GObject *start, *curr, *obj;
-        auto it = stream.begin();
+        auto it = stream->begin();
         curr = new GObject();
         start = NULL;
 
-        while(it != stream.end())
+        while(it != stream->end())
         {
             if (it->is_open()) {
                 obj = new GObject(new GObject(), new GObject());

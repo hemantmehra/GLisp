@@ -23,6 +23,8 @@ namespace LISP {
         bool is_integer()  const { return m_type == Type::Integer; }
         bool is_symbol() const { return m_type == Type::Symbol; }
 
+        std::string to_string();
+        
         int32_t as_integer() const
         {
             return m_value.as_integer;
@@ -58,7 +60,6 @@ namespace LISP {
             std::string* as_symbol;
             std::string* as_string;
             int32_t as_integer;
-            
         } m_value;
     };
 
@@ -69,14 +70,16 @@ namespace LISP {
         {
             Begin,
             BeginList,
-            BeginSymbol,
+            Symbol,
+            Integer,
             End
         };
         
         void tokenize(std::string);
-        std::vector<Token*>* get_tokens();
+        std::vector<Token>* get_tokens();
     private:
-        std::vector<Token*> m_tokens;
+        std::vector<Token> m_tokens;
+        bool is_number(const std::string& s);
     };
 }
 

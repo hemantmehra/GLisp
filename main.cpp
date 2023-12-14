@@ -61,7 +61,7 @@ int main()
     // stream.push_back(t6);
     stream.push_back(t3);
 
-    LISP::GObject *out = parser.parse(stream);
+    LISP::GObject *out = parser.parse(&stream);
     LISP::GObject *result2 = interpreter.eval(out, &env);
 
     std::cout << result2->as_integer() << std::endl;
@@ -69,10 +69,17 @@ int main()
     std::cout << out->to_string() << std::endl;
 
     LISP::Tokenizer tokenizer;
-    tokenizer.tokenize("(add a b)");
+    tokenizer.tokenize("(add 123 345)");
 
-    std::vector<LISP::Token*>* v1 = tokenizer.get_tokens();
-    
+    std::vector<LISP::Token>* v1 = tokenizer.get_tokens();
+
+    for (int i = 0; i < v1->size(); i++)
+        std::cout << (*v1)[i].to_string() << std::endl;
+    LISP::GObject *out2 = parser.parse(v1);
+    std::cout << out2->as_cons_cdr()->to_string() << std::endl;
+    LISP::GObject *result3 = interpreter.eval(out2, &env);
+
+    std::cout << result3->as_integer() << std::endl;
     
     return 0;
 }

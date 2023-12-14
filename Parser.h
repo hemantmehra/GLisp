@@ -11,7 +11,7 @@ namespace LISP {
     class Parser
     {
     public:
-        GObject* parse(std::vector<Token>);
+        GObject* parse(std::vector<Token>*);
         
     private:
 

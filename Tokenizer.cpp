@@ -1,68 +1,90 @@
 #include <Tokenizer.h>
 #include <cctype>
+#include <iostream>
 
 namespace LISP {
-    std::vector<Token*>* Tokenizer::get_tokens()
+    std::string Token::to_string()
+    {
+        if (is_open()) {
+            return "Token::Open";
+        }
+
+        else if (is_close()) {
+            return "Token::Close";
+        }
+
+        else if (is_integer()) {
+            return "Token::Int";
+        }
+
+        else if (is_symbol()) {
+            return "Token::Sym::" + *as_symbol(); 
+        }
+
+        assert(0);
+    }
+    
+    bool Tokenizer::is_number(const std::string& s)
+    {
+        std::string::const_iterator it = s.begin();
+        while (it != s.end() && std::isdigit(*it)) ++it;
+        return !s.empty() && it == s.end();
+    }
+    
+    std::vector<Token>* Tokenizer::get_tokens()
     {
         return &m_tokens;
     }
     
     void Tokenizer::tokenize(std::string s)
     {
-        State state = State::Begin;
         auto it = s.begin();
+        std::vector<std::string> str_vec;
         std::string tmp = "";
         while (it != s.end()) {
-            if (*it = '(') {
-                m_tokens.push_back(new Token(Token::Type::Open));
+            if (*it == '(') {
+                str_vec.push_back("(");
             }
 
-            else if (*it = ')') {
-                m_tokens.push_back(new Token(Token::Type::Close));
+            else if (*it == ')') {
+                str_vec.push_back(tmp);
+                tmp = "";
+                str_vec.push_back(")");
             }
 
             else if (isspace(*it) && tmp.length() != 0) {
-                std::string s1(tmp);
-                m_tokens.push_back(new Token(Token::Type::Symbol, &s1));
-            }
-
-            else if (isalpha(*it) && tmp.length() == 0) {
+                str_vec.push_back(tmp);
                 tmp = "";
-                tmp += *it;
             }
 
-            else if (isalpha(*it)) {
+            else if (isspace(*it)) {}
+
+            else {
                 tmp += *it;
             }
-            
             it++;
         }
 
+        for(auto s: str_vec) {
+            std::cout << "[0]" << s << std::endl;
+            if (s == "(") {
+                m_tokens.push_back(Token(Token::Type::Open));
+            }
 
-        /*
-        switch(state)
-        {
-        case Begin:
-            {
-                if (*it == '(') {
-                    m_tokens.push_back(new Token(Token::Type::Open));
-                    state = State::BeginList;
-                    it++;
-                    break;
-                }
-                assert(0);
+            else if (s == ")") {
+                m_tokens.push_back(Token(Token::Type::Close));
             }
-        
-        case BeginList:
-            {
-                if (isalpha(*it)) {
-                    state = State::BeginSymbol;
-                }
-                break;
+
+            else if (is_number(s)) {
+                int num = stoi(s);
+                m_tokens.push_back(Token(Token::Type::Integer, num));
             }
+
+            else {
+                m_tokens.push_back(Token(Token::Type::Symbol, &s));
+                std::cout << "[1]" << s << std::endl;
                 
+            }
         }
-
-        */
     }
 }
