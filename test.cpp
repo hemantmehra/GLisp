@@ -2,6 +2,7 @@
 #include <Interpreter/Scaler.h>
 #include <Interpreter/Symbol.h>
 #include <Interpreter/Cons.h>
+#include <Interpreter/Environment.h>
 
 #define OBJECT_PTR std::shared_ptr<LISP::Object>
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)
@@ -52,11 +53,24 @@ void test_cons2()
     TEST(c1->to_string() == "(add, (42, (33, nil)))");
 }
 
+void test_environment()
+{
+    LISP::Environment env;
+    
+    OBJECT_PTR s1 = OBJECT_PTR_CAST(MAKE_SYMBOL("add"));
+    OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(42));
+
+    env.set(s1, s2);
+    CHECK(env.find(s1));
+    CHECK(env.get(s1)->to_string() == "42");
+}
+
 int main()
 {
     test_scaler();
     test_symbol();
     test_cons();
     test_cons2();
+    test_environment();
     return 0;
 }

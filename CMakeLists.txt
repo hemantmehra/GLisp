@@ -13,5 +13,6 @@ add_executable(test test.cpp
                 Interpreter/Scaler.cpp
                 Interpreter/Symbol.cpp
                 Interpreter/Cons.cpp
+                Interpreter/Environment.cpp
 )
 
