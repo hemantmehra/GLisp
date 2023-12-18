@@ -5,7 +5,7 @@
 #include <Interpreter/Object.h>
 
 namespace LISP {
-    class Scaler : Object
+    class Scaler : public Object
     {
     public:
         enum class Type
