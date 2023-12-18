@@ -9,8 +9,8 @@ namespace LISP {
     class Cons : public Object
     {
     public:
-        Cons(std::shared_ptr<Object>&);
-        Cons(std::shared_ptr<Object>&, std::shared_ptr<Object>&);
+        Cons(std::shared_ptr<Object>);
+        Cons(std::shared_ptr<Object>, std::shared_ptr<Object>);
         std::string to_string() override;
 
     private:

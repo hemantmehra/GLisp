@@ -3,13 +3,13 @@
 #include <Interpreter/Cons.h>
 
 namespace LISP {
-    Cons::Cons(std::shared_ptr<Object>& a)
+    Cons::Cons(std::shared_ptr<Object> a)
     {
         m_car = a;
         m_cdr = std::static_pointer_cast<Object>(std::make_shared<Scaler>());
     }
 
-    Cons::Cons(std::shared_ptr<Object>& a, std::shared_ptr<Object>& b)
+    Cons::Cons(std::shared_ptr<Object> a, std::shared_ptr<Object> b)
     {
         m_car = a;
         m_cdr = b;
