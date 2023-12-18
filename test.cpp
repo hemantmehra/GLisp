@@ -3,7 +3,8 @@
 #include <Interpreter/Symbol.h>
 #include <Interpreter/Cons.h>
 
-#define OBJECT_CAST(x) std::static_pointer_cast<LISP::Object>(x)
+#define OBJECT_PTR std::shared_ptr<LISP::Object>
+#define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)
 #define MAKE_SCALER(x) std::make_shared<LISP::Scaler>(x)
 #define MAKE_SYMBOL(x) std::make_shared<LISP::Symbol>(x)
 #define MAKE_CONS1(x) std::make_shared<LISP::Cons>(x)
@@ -28,8 +29,8 @@ void test_symbol()
 
 void test_cons()
 {
-    std::shared_ptr<LISP::Object> s1 = OBJECT_CAST(MAKE_SCALER(42));
-    std::shared_ptr<LISP::Object> s2 = OBJECT_CAST(MAKE_SCALER(33));
+    OBJECT_PTR s1 = OBJECT_PTR_CAST(MAKE_SCALER(42));
+    OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(33));
 
     LISP::Cons c1(s1);
     TEST(c1.to_string() == "(42, nil)");
@@ -40,14 +41,15 @@ void test_cons()
 
 void test_cons2()
 {
-    std::shared_ptr<LISP::Object> s1 = OBJECT_CAST(MAKE_SYMBOL("add"));
-    std::shared_ptr<LISP::Object> s2 = OBJECT_CAST(MAKE_SCALER(42));
-    std::shared_ptr<LISP::Object> s3 = OBJECT_CAST(MAKE_SCALER(33));
+    OBJECT_PTR s1 = OBJECT_PTR_CAST(MAKE_SYMBOL("add"));
+    OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(42));
+    OBJECT_PTR s3 = OBJECT_PTR_CAST(MAKE_SCALER(33));
 
-    std::shared_ptr<LISP::Object> c2 = OBJECT_CAST(MAKE_CONS2(s2, s3));
+    OBJECT_PTR c3 = OBJECT_PTR_CAST(MAKE_CONS1(s3));
+    OBJECT_PTR c2 = OBJECT_PTR_CAST(MAKE_CONS2(s2, c3));
+    OBJECT_PTR c1 = OBJECT_PTR_CAST(MAKE_CONS2(s1, c2));
 
-    LISP::Cons c3(s1, c2);
-    TEST(c3.to_string() == "(add, (42, 33))");
+    TEST(c1->to_string() == "(add, (42, (33, nil)))");
 }
 
 int main()
