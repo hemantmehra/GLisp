@@ -122,6 +122,29 @@ void test_interpreter_add()
     TEST(res->to_string() == "75");
 }
 
+void test_interpreter_mul()
+{
+    LISP::Interpreter interpreter;
+    std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
+    OBJECT_PTR s_add = OBJECT_PTR_CAST(MAKE_SYMBOL("mul"));
+    OBJECT_PTR p_add = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Mul));
+
+    env->set(s_add, p_add);
+
+    OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(13));
+    OBJECT_PTR s3 = OBJECT_PTR_CAST(MAKE_SCALER(41));
+
+    OBJECT_PTR c3 = OBJECT_PTR_CAST(MAKE_CONS1(s3));
+    OBJECT_PTR c2 = OBJECT_PTR_CAST(MAKE_CONS2(s2, c3));
+    OBJECT_PTR c1 = OBJECT_PTR_CAST(MAKE_CONS2(s_add, c2));
+    
+    OBJECT_PTR res = interpreter.eval(c1, env);
+
+    TEST(res->is_scaler());
+    TEST(res->to_string() == "533");
+    TEST(res->to_string() != "54");
+}
+
 int main()
 {
     test_scaler();
@@ -132,5 +155,6 @@ int main()
     test_interpreter_eval_scaler();
     test_interpreter_eval_symbol();
     test_interpreter_add();
+    test_interpreter_mul();
     return 0;
 }

@@ -11,7 +11,8 @@ namespace LISP {
     public:
         enum class Type
         {
-            Add
+            Add,
+            Mul
         };
 
         PrimitiveProcedure(Type);

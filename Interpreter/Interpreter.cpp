@@ -6,6 +6,7 @@
 #define CONS_PTR_CAST(x) std::dynamic_pointer_cast<Cons>(x)
 #define SCALER_PTR_CAST(x) std::dynamic_pointer_cast<Scaler>(x)
 #define OBJECT_PTR std::shared_ptr<Object>
+#define CONS_PTR std::shared_ptr<Cons>
 
 namespace LISP {
     OBJECT_PTR Interpreter::eval(OBJECT_PTR obj, std::shared_ptr<Environment> env)
@@ -19,7 +20,7 @@ namespace LISP {
         }
 
         else {
-            std::shared_ptr<Cons> cons_obj = CONS_PTR_CAST(obj);
+            CONS_PTR cons_obj = CONS_PTR_CAST(obj);
             OBJECT_PTR proc = cons_obj->as_car();
             OBJECT_PTR args = cons_obj->as_cdr();
             return apply(eval(proc, env), args);
@@ -45,7 +46,7 @@ namespace LISP {
         {
         case PrimitiveProcedure::Type::Add:
         {
-            std::shared_ptr<Cons> cons_obj = CONS_PTR_CAST(args);
+            CONS_PTR cons_obj = CONS_PTR_CAST(args);
             OBJECT_PTR arg1 = cons_obj->as_car();
             OBJECT_PTR arg2 = CONS_PTR_CAST(cons_obj->as_cdr())->as_car();
 
@@ -54,6 +55,21 @@ namespace LISP {
                 std::shared_ptr<Scaler> arg2_s = SCALER_PTR_CAST(arg2);
                 return std::make_shared<Scaler>(arg1_s->as_integer() + arg2_s->as_integer());
             }
+            break;
+        }
+
+        case PrimitiveProcedure::Type::Mul:
+        {
+            CONS_PTR cons_obj = CONS_PTR_CAST(args);
+            OBJECT_PTR arg1 = cons_obj->as_car();
+            OBJECT_PTR arg2 = CONS_PTR_CAST(cons_obj->as_cdr())->as_car();
+
+            if (arg1->is_scaler() && arg2->is_scaler()) {
+                std::shared_ptr<Scaler> arg1_s = SCALER_PTR_CAST(arg1);
+                std::shared_ptr<Scaler> arg2_s = SCALER_PTR_CAST(arg2);
+                return std::make_shared<Scaler>(arg1_s->as_integer() * arg2_s->as_integer());
+            }
+            break;
         }
         
         default:
