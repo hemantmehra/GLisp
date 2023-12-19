@@ -10,6 +10,7 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 # add_executable(glisp glisp.cpp)
 
 add_executable(test test.cpp
+                Interpreter/Object.cpp
                 Interpreter/Scaler.cpp
                 Interpreter/Symbol.cpp
                 Interpreter/Cons.cpp

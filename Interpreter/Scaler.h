@@ -29,6 +29,7 @@ namespace LISP {
         Scaler(bool);
         Scaler(char);
 
+        virtual bool is_scaler() const override { return true; }
         std::string to_string() override;
 
     private:

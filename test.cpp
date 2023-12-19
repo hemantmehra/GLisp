@@ -3,6 +3,7 @@
 #include <Interpreter/Symbol.h>
 #include <Interpreter/Cons.h>
 #include <Interpreter/Environment.h>
+#include <Interpreter/Interpreter.h>
 
 #define OBJECT_PTR std::shared_ptr<LISP::Object>
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)
@@ -15,8 +16,10 @@ void test_scaler()
 {
     LISP::Scaler s1;
     TEST(s1.type() == LISP::Scaler::Type::Nil);
+    TEST(s1.is_scaler());
 
     LISP::Scaler s2(42);
+    TEST(s2.is_scaler());
     TEST(s2.type() == LISP::Scaler::Type::Integer);
     TEST(s2.as_integer() == 42);
     TEST(s2.to_string() == "42");
@@ -25,6 +28,7 @@ void test_scaler()
 void test_symbol()
 {
     LISP::Symbol s1("add");
+    TEST(s1.is_symbol());
     TEST(s1.name() == "add");
 }
 
@@ -34,6 +38,7 @@ void test_cons()
     OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(33));
 
     LISP::Cons c1(s1);
+    TEST(c1.is_cons());
     TEST(c1.to_string() == "(42, nil)");
 
     LISP::Cons c2(s1, s2);
@@ -65,6 +70,19 @@ void test_environment()
     CHECK(env.get(s1)->to_string() == "42");
 }
 
+void test_interpreter()
+{
+    LISP::Interpreter interpreter;
+    std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
+    OBJECT_PTR s1 = OBJECT_PTR_CAST(MAKE_SCALER(42));
+
+    OBJECT_PTR s2 = interpreter.eval(s1, env);
+
+    TEST(s1->is_scaler());
+    TEST(s2->is_scaler());
+    TEST(s2->to_string() == "42");
+}
+
 int main()
 {
     test_scaler();
@@ -72,5 +90,6 @@ int main()
     test_cons();
     test_cons2();
     test_environment();
+    test_interpreter();
     return 0;
 }

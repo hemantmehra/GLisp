@@ -10,6 +10,7 @@ namespace LISP {
     public:
         Symbol(std::string x) : m_name(x) {}
         std::string name() const;
+        virtual bool is_symbol() const override { return true; }
         std::string to_string() override;
 
     private:

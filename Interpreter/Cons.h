@@ -11,6 +11,7 @@ namespace LISP {
     public:
         Cons(std::shared_ptr<Object>);
         Cons(std::shared_ptr<Object>, std::shared_ptr<Object>);
+        virtual bool is_cons() const override { return true; }
         std::string to_string() override;
 
     private:
