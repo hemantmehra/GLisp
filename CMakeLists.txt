@@ -16,5 +16,5 @@ add_executable(test test.cpp
                 Interpreter/Cons.cpp
                 Interpreter/Environment.cpp
                 Interpreter/Interpreter.cpp
+                Interpreter/PrimitiveProcedure.cpp
 )
-

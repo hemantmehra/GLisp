@@ -11,6 +11,9 @@ namespace LISP {
     public:
         std::shared_ptr<Object> eval(std::shared_ptr<Object>, std::shared_ptr<Environment>);
         std::shared_ptr<Object> apply(std::shared_ptr<Object>, std::shared_ptr<Object>);
+    
+    private:
+        std::shared_ptr<Object> apply_dispatch(std::shared_ptr<Object>, std::shared_ptr<Object>);
     };
 }
 

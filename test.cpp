@@ -4,6 +4,7 @@
 #include <Interpreter/Cons.h>
 #include <Interpreter/Environment.h>
 #include <Interpreter/Interpreter.h>
+#include <Interpreter/PrimitiveProcedure.h>
 
 #define OBJECT_PTR std::shared_ptr<LISP::Object>
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)
@@ -11,6 +12,7 @@
 #define MAKE_SYMBOL(x) std::make_shared<LISP::Symbol>(x)
 #define MAKE_CONS1(x) std::make_shared<LISP::Cons>(x)
 #define MAKE_CONS2(x, y) std::make_shared<LISP::Cons>(x, y)
+#define MAKE_PRIMITVE_PROCEDURE(x) std::make_shared<LISP::PrimitiveProcedure>(x)
 
 void test_scaler()
 {
@@ -91,11 +93,28 @@ void test_interpreter_eval_symbol()
     OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(42));
 
     env->set(s1, s2);
-    
+
     OBJECT_PTR s3 = interpreter.eval(s1, env);
 
     TEST(s3->is_scaler());
     TEST(s3->to_string() == "42");
+}
+
+void test_interpreter_add()
+{
+    // LISP::Interpreter interpreter;
+    std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
+    OBJECT_PTR s_add = OBJECT_PTR_CAST(MAKE_SYMBOL("add"));
+    OBJECT_PTR p_add = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Add));
+    OBJECT_PTR i1 = OBJECT_PTR_CAST(MAKE_SCALER(42));
+    OBJECT_PTR i2 = OBJECT_PTR_CAST(MAKE_SCALER(33));
+
+    env->set(s_add, p_add);
+    
+    // OBJECT_PTR s3 = interpreter.eval(s1, env);
+
+    // TEST(s3->is_scaler());
+    // TEST(s3->to_string() == "42");
 }
 
 int main()
@@ -107,5 +126,6 @@ int main()
     test_environment();
     test_interpreter_eval_scaler();
     test_interpreter_eval_symbol();
+    test_interpreter_add();
     return 0;
 }

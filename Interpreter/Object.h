@@ -11,6 +11,7 @@ namespace LISP {
         virtual bool is_scaler() const { return false; }
         virtual bool is_symbol() const { return false; }
         virtual bool is_cons() const { return false; }
+        virtual bool is_primitive_procedure() const {return false; }
 
         virtual std::string to_string() = 0;
     };
