@@ -44,7 +44,7 @@ namespace LISP {
         {
             std::shared_ptr<Cons> cons_obj = std::dynamic_pointer_cast<Cons>(args);
             std::shared_ptr<Object> arg1 = cons_obj->as_car();
-            std::shared_ptr<Object> arg2 = cons_obj->as_cdr();
+            std::shared_ptr<Object> arg2 = std::dynamic_pointer_cast<Cons>(cons_obj->as_cdr())->as_car();
 
             if (arg1->is_scaler() && arg2->is_scaler()) {
                 std::shared_ptr<Scaler> arg1_s = std::dynamic_pointer_cast<Scaler>(arg1);
