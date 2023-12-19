@@ -70,7 +70,7 @@ void test_environment()
     CHECK(env.get(s1)->to_string() == "42");
 }
 
-void test_interpreter()
+void test_interpreter_eval_scaler()
 {
     LISP::Interpreter interpreter;
     std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
@@ -83,6 +83,21 @@ void test_interpreter()
     TEST(s2->to_string() == "42");
 }
 
+void test_interpreter_eval_symbol()
+{
+    LISP::Interpreter interpreter;
+    std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
+    OBJECT_PTR s1 = OBJECT_PTR_CAST(MAKE_SYMBOL("abc"));
+    OBJECT_PTR s2 = OBJECT_PTR_CAST(MAKE_SCALER(42));
+
+    env->set(s1, s2);
+    
+    OBJECT_PTR s3 = interpreter.eval(s1, env);
+
+    TEST(s3->is_scaler());
+    TEST(s3->to_string() == "42");
+}
+
 int main()
 {
     test_scaler();
@@ -90,6 +105,7 @@ int main()
     test_cons();
     test_cons2();
     test_environment();
-    test_interpreter();
+    test_interpreter_eval_scaler();
+    test_interpreter_eval_symbol();
     return 0;
 }

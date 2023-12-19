@@ -15,6 +15,16 @@ namespace LISP {
         m_cdr = b;
     }
 
+    std::shared_ptr<Object> Cons::as_car()
+    {
+        return m_car;
+    }
+    
+    std::shared_ptr<Object> Cons::as_cdr()
+    {
+        return m_cdr;
+    }
+
     std::string Cons::to_string()
     {
         return "(" + m_car->to_string() + ", " + m_cdr->to_string() + ")";
