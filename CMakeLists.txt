@@ -18,4 +18,5 @@ add_executable(test test.cpp
                 Interpreter/Interpreter.cpp
                 Interpreter/PrimitiveProcedure.cpp
                 Interpreter/Tokenizer.cpp
+                Interpreter/Parser.cpp
 )

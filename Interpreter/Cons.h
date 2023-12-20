@@ -9,10 +9,13 @@ namespace LISP {
     class Cons : public Object
     {
     public:
+        Cons();
         Cons(std::shared_ptr<Object>);
         Cons(std::shared_ptr<Object>, std::shared_ptr<Object>);
         std::shared_ptr<Object> as_car();
         std::shared_ptr<Object> as_cdr();
+        void set_car(std::shared_ptr<Object>);
+        void set_cdr(std::shared_ptr<Object>);
         virtual bool is_cons() const override { return true; }
         std::string to_string() override;
 

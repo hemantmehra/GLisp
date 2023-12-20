@@ -20,6 +20,7 @@ namespace LISP {
         Token(Type);
         Token(Type, int);
         Token(Type, std::string);
+        Type type() { return m_type; } 
         int as_scaler_value();
         std::string as_symbol_value();
     
