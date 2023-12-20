@@ -165,10 +165,9 @@ void test_parser()
 {
     LISP::Interpreter interpreter;
     std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
-    OBJECT_PTR s_add = OBJECT_PTR_CAST(MAKE_SYMBOL("add"));
     OBJECT_PTR p_add = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Add));
 
-    env->set(s_add, p_add);
+    env->set_using_string("add", p_add);
 
     LISP::Tokenizer tokenizer;
     LISP::Parser parser;

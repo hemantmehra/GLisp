@@ -16,6 +16,11 @@ namespace LISP {
         m_env[SYMBOL_PTR_CAST(k)->name()] = v;
     }
 
+    void Environment::set_using_string(std::string s, std::shared_ptr<Object> v)
+    {
+        m_env[s] = v;
+    }
+
     bool Environment::find(std::shared_ptr<Object> k)
     {
         return m_env.find(SYMBOL_PTR_CAST(k)->name()) != m_env.end();

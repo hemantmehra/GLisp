@@ -12,6 +12,7 @@ namespace LISP {
     public:
         std::shared_ptr<Object> get(std::shared_ptr<Object>);
         void set(std::shared_ptr<Object>, std::shared_ptr<Object>);
+        void set_using_string(std::string, std::shared_ptr<Object>);
         bool find(std::shared_ptr<Object>);
 
     private:
