@@ -1,3 +1,4 @@
+#include <utility>
 #include <Interpreter/Parser.h>
 #include <Interpreter/Scaler.h>
 #include <Interpreter/Symbol.h>
@@ -22,6 +23,7 @@ namespace LISP {
     {
         std::shared_ptr<Cons> start = MAKE_NODE0();
         std::shared_ptr<Cons> curr_obj = start;
+        std::shared_ptr<Cons> two_pointer = MAKE_NODE0();
         std::vector<std::shared_ptr<Cons>> stack;
 
         for (auto curr_token: tokens)
@@ -36,16 +38,38 @@ namespace LISP {
 
             case Token::Type::RP:
             {
+                while(stack.size() != 0) {
+                    std::shared_ptr<Cons> tmp = stack.back();
+                    two_pointer->set_car(tmp);
+                    tmp->set_cdr(curr_obj);
+                    stack.pop_back();
+                }
                 break;
             }
 
             case Token::Type::Symbol:
             {
+                auto symbol_obj = OBJECT_PTR_CAST(MAKE_SYMBOL(curr_token.as_symbol_value()));
+                auto node = MAKE_NODE1(symbol_obj);
+                curr_obj->set_cdr(OBJECT_PTR_CAST(node));
+                if (two_pointer->as_car()->is_nil()) {
+                    two_pointer->set_car(OBJECT_PTR_CAST(node));
+                }
+                two_pointer->set_cdr(OBJECT_PTR_CAST(node));
+                curr_obj = node;
                 break;
             }
 
             case Token::Type::Scaler:
             {
+                auto scaler_obj = OBJECT_PTR_CAST(MAKE_SCALER(curr_token.as_scaler_value()));
+                auto node = MAKE_NODE1(scaler_obj);
+                curr_obj->set_cdr(OBJECT_PTR_CAST(node));
+                if (two_pointer->as_car()->is_nil()) {
+                    two_pointer->set_car(OBJECT_PTR_CAST(node));
+                }
+                two_pointer->set_cdr(OBJECT_PTR_CAST(node));
+                curr_obj = node;
                 break;
             }
             

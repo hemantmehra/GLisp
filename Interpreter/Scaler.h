@@ -30,6 +30,7 @@ namespace LISP {
         Scaler(char);
 
         virtual bool is_scaler() const override { return true; }
+        virtual bool is_nil() const override { return m_type == Type::Nil; }
         std::string to_string() override;
 
     private:
