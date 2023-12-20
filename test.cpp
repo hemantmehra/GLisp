@@ -1,3 +1,4 @@
+#include <iostream>
 #include <Interpreter/Assertion.h>
 #include <Interpreter/Scaler.h>
 #include <Interpreter/Symbol.h>
@@ -5,6 +6,7 @@
 #include <Interpreter/Environment.h>
 #include <Interpreter/Interpreter.h>
 #include <Interpreter/PrimitiveProcedure.h>
+#include <Interpreter/Tokenizer.h>
 
 #define OBJECT_PTR std::shared_ptr<LISP::Object>
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)
@@ -145,6 +147,24 @@ void test_interpreter_mul()
     TEST(res->to_string() != "54");
 }
 
+void test_tokenizer()
+{
+    LISP::Tokenizer tokenizer;
+    TEST(tokenizer.is_number("4345656"));
+
+    std::string code = "(add 23 67)";
+    std::vector<std::string> words = tokenizer.split_to_words(code);
+    TEST(words.size() == 5);
+
+    std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
+    TEST(tokens.size() == 5);
+
+    // for(auto i: words) {
+    //     std::cout << '[' << i << ']' << ' ';
+    // }
+    // std::cout << std::endl;
+}
+
 int main()
 {
     test_scaler();
@@ -156,5 +176,6 @@ int main()
     test_interpreter_eval_symbol();
     test_interpreter_add();
     test_interpreter_mul();
+    test_tokenizer();
     return 0;
 }

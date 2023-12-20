@@ -1,5 +1,5 @@
-#ifndef PRIMITIVE_PROCEDURE
-#define PRIMITIVE_PROCEDURE
+#ifndef PRIMITIVE_PROCEDURE_H
+#define PRIMITIVE_PROCEDURE_H
 
 #include <string>
 #include <memory>
