@@ -18,9 +18,15 @@ namespace LISP {
         };
 
         Token(Type);
+        Token(Type, int);
+        Token(Type, std::string);
+        int as_scaler_value();
+        std::string as_symbol_value();
     
     private:
         Type m_type;
+        int m_scaler_value;
+        std::string m_string_value;
     };
 
     class Tokenizer

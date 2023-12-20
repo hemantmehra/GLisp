@@ -3,6 +3,14 @@
 namespace LISP {
     Token::Token(Type type) : m_type(type) {}
 
+    Token::Token(Type type, int x) : m_type(type), m_scaler_value(x) {}
+
+    Token::Token(Type type, std::string x) : m_type(type), m_string_value(x) {}
+
+    int Token::as_scaler_value() { return m_scaler_value; }
+
+    std::string Token::as_symbol_value() { return m_string_value; }
+
     std::vector<std::string> Tokenizer::split_to_words(std::string code)
     {
         std::vector<std::string> words;
@@ -65,11 +73,11 @@ namespace LISP {
             }
 
             else if (is_number(it)) {
-                tokens.push_back(Token(Token::Type::Scaler));
+                tokens.push_back(Token(Token::Type::Scaler, stoi(it)));
             }
 
             else {
-                tokens.push_back(Token(Token::Type::Symbol));
+                tokens.push_back(Token(Token::Type::Symbol, it));
             }
         }
 
