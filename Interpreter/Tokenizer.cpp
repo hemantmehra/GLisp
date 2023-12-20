@@ -11,6 +11,28 @@ namespace LISP {
 
     std::string Token::as_symbol_value() { return m_string_value; }
 
+    std::string Token::to_string()
+    {
+        switch (m_type)
+        {
+        case Type::LP:
+            return "[Token] LP";
+            break;
+        case Type::RP:
+            return "[Token] RP";
+            break;
+        case Type::Symbol:
+            return "[Token] " + as_symbol_value();
+            break;
+        case Type::Scaler:
+            return "[Token] " + std::to_string(as_scaler_value());
+            break;
+        default:
+            break;
+        }
+        return "";
+    }
+
     std::vector<std::string> Tokenizer::split_to_words(std::string code)
     {
         std::vector<std::string> words;

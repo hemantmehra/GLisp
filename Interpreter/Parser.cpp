@@ -1,8 +1,11 @@
+#include <iostream>
 #include <Interpreter/Assertion.h>
 #include <Interpreter/Parser.h>
 #include <Interpreter/Scaler.h>
 #include <Interpreter/Symbol.h>
 #include <Interpreter/Cons.h>
+
+// #define TOKENIZER_DEBUG
 
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<Object>(x)
 #define CONS_PTR_CAST(x) std::dynamic_pointer_cast<Cons>(x)
@@ -23,6 +26,9 @@ namespace LISP {
     {
         if (two_pointer->as_car()->is_nil() && two_pointer->as_cdr()->is_nil())
         {
+#ifdef TOKENIZER_DEBUG
+            std::cout << "two pointer is empty" << '\n';
+#endif
             two_pointer->set_car(cons_ptr);
             two_pointer->set_cdr(cons_ptr);
         }
@@ -33,6 +39,7 @@ namespace LISP {
             CHECK(!two_pointer->as_cdr()->is_nil());
 
             CONS_PTR_CAST(two_pointer->as_cdr())->set_cdr(cons_ptr);
+            two_pointer->set_cdr(OBJECT_PTR_CAST(cons_ptr));
         }
     }
 
@@ -43,6 +50,9 @@ namespace LISP {
 
         for (auto curr_token: tokens)
         {
+#ifdef TOKENIZER_DEBUG
+            std::cout << curr_token.to_string() << '\n';
+#endif
             switch (curr_token.type())
             {
             case Token::Type::LP:
@@ -79,7 +89,9 @@ namespace LISP {
             default:
                 break;
             }
-
+#ifdef TOKENIZER_DEBUG
+            std::cout << two_pointer->to_string() << '\n';
+#endif
         }
 
         return two_pointer->as_car();

@@ -7,6 +7,7 @@
 #include <Interpreter/Interpreter.h>
 #include <Interpreter/PrimitiveProcedure.h>
 #include <Interpreter/Tokenizer.h>
+#include <Interpreter/Parser.h>
 
 #define OBJECT_PTR std::shared_ptr<LISP::Object>
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)
@@ -158,11 +159,28 @@ void test_tokenizer()
 
     std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
     TEST(tokens.size() == 5);
+}
 
-    // for(auto i: words) {
-    //     std::cout << '[' << i << ']' << ' ';
-    // }
-    // std::cout << std::endl;
+void test_parser()
+{
+    LISP::Interpreter interpreter;
+    std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
+    OBJECT_PTR s_add = OBJECT_PTR_CAST(MAKE_SYMBOL("add"));
+    OBJECT_PTR p_add = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Add));
+
+    env->set(s_add, p_add);
+
+    LISP::Tokenizer tokenizer;
+    LISP::Parser parser;
+
+    std::string code = "(add 23 61)";
+    std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
+
+    std::shared_ptr<LISP::Object> obj = parser.parse(tokens);
+    OBJECT_PTR res = interpreter.eval(obj, env);
+
+    TEST(res->is_scaler());
+    TEST(res->to_string() == "84");
 }
 
 int main()
@@ -177,5 +195,6 @@ int main()
     test_interpreter_add();
     test_interpreter_mul();
     test_tokenizer();
+    test_parser();
     return 0;
 }

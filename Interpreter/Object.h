@@ -8,7 +8,7 @@ namespace LISP {
     {
     public:
         virtual ~Object() = default;
-        virtual bool is_nil() const { return true; }
+        virtual bool is_nil() const { return false; }
         virtual bool is_scaler() const { return false; }
         virtual bool is_symbol() const { return false; }
         virtual bool is_cons() const { return false; }

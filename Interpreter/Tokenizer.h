@@ -23,6 +23,7 @@ namespace LISP {
         Type type() { return m_type; } 
         int as_scaler_value();
         std::string as_symbol_value();
+        std::string to_string();
     
     private:
         Type m_type;
