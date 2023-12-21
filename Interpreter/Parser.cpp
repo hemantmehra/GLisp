@@ -27,7 +27,7 @@ namespace LISP {
         if (two_pointer->as_car()->is_nil() && two_pointer->as_cdr()->is_nil())
         {
 #ifdef TOKENIZER_DEBUG
-            std::cout << "two pointer is empty" << '\n';
+            // std::cout << "two pointer is empty" << '\n';
 #endif
             two_pointer->set_car(cons_ptr);
             two_pointer->set_cdr(cons_ptr);
@@ -43,6 +43,23 @@ namespace LISP {
         }
     }
 
+    void level_concat_using_two_pointer(std::shared_ptr<Cons> ptr1, std::shared_ptr<Cons> ptr2)
+    {
+        // CHECK(!ptr1->as_car()->is_nil());
+        // CHECK(!ptr2->as_cdr()->is_nil());
+        if (ptr1->as_car()->is_nil() && ptr1->as_cdr()->is_nil())
+        {
+            ptr1->set_car(ptr2->as_car());
+            ptr1->set_cdr(ptr2->as_cdr());
+            return;
+        }
+
+        std::shared_ptr<Cons> tmp_node = MAKE_NODE0();
+        tmp_node->set_car(ptr2->as_car());
+        CONS_PTR_CAST(ptr1->as_cdr())->set_cdr(tmp_node);
+        ptr1->set_cdr(OBJECT_PTR_CAST(tmp_node));
+    }
+
     std::shared_ptr<Object> Parser::parse(std::vector<Token> tokens)
     {
         std::shared_ptr<Cons> two_pointer = MAKE_NODE0();
@@ -51,6 +68,7 @@ namespace LISP {
         for (auto curr_token: tokens)
         {
 #ifdef TOKENIZER_DEBUG
+            // std::cout << "------------------------" << '\n';
             std::cout << curr_token.to_string() << '\n';
 #endif
             switch (curr_token.type())
@@ -65,7 +83,15 @@ namespace LISP {
             case Token::Type::RP:
             {
                 std::shared_ptr<Cons> tmp1 = stack.back();
-                append_using_two_pointer(two_pointer, tmp1);
+#ifdef TOKENIZER_DEBUG
+                std::cout << "Stack Top: " << tmp1->to_string() << '\n';
+                std::cout << "Two Pointer: " << two_pointer->to_string() << '\n';
+#endif
+                level_concat_using_two_pointer(tmp1, two_pointer);
+                two_pointer = tmp1;
+#ifdef TOKENIZER_DEBUG
+                std::cout << "New Two Pointer: " << two_pointer->to_string() << '\n';
+#endif
                 stack.pop_back();
                 break;
             }
@@ -91,9 +117,13 @@ namespace LISP {
             }
 #ifdef TOKENIZER_DEBUG
             std::cout << two_pointer->to_string() << '\n';
+            // std::cout << "------------------------" << '\n';
 #endif
         }
 
+#ifdef TOKENIZER_DEBUG
+            std::cout << "Final Parse Tree: " << two_pointer->as_car()->to_string() << '\n';
+#endif
         return two_pointer->as_car();
     }
 }

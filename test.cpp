@@ -172,14 +172,14 @@ void test_parser()
     LISP::Tokenizer tokenizer;
     LISP::Parser parser;
 
-    std::string code = "(add 23 61)";
+    std::string code = "(add 23 1)";
     std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
 
     std::shared_ptr<LISP::Object> obj = parser.parse(tokens);
     OBJECT_PTR res = interpreter.eval(obj, env);
 
     TEST(res->is_scaler());
-    TEST(res->to_string() == "84");
+    TEST(res->to_string() == "24");
 }
 
 int main()
