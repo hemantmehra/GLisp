@@ -182,6 +182,28 @@ void test_parser()
     TEST(res->to_string() == "24");
 }
 
+
+void test_parser2()
+{
+    LISP::Interpreter interpreter;
+    std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
+    OBJECT_PTR p_add = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Add));
+
+    env->set_using_string("add", p_add);
+
+    LISP::Tokenizer tokenizer;
+    LISP::Parser parser;
+
+    std::string code = "(add 23 (add 3 4))";
+    std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
+
+    std::shared_ptr<LISP::Object> obj = parser.parse(tokens);
+    OBJECT_PTR res = interpreter.eval(obj, env);
+
+    TEST(res->is_scaler());
+    TEST(res->to_string() == "30");
+}
+
 int main()
 {
     test_scaler();
@@ -195,5 +217,6 @@ int main()
     test_interpreter_mul();
     test_tokenizer();
     test_parser();
+    test_parser2();
     return 0;
 }
