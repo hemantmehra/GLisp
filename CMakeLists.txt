@@ -27,4 +27,5 @@ add_executable(glisp glisp.cpp
                 GLisp/PrimitiveProcedure.cpp
                 GLisp/Tokenizer.cpp
                 GLisp/Parser.cpp
+                GLisp/Compiler.cpp
 )
