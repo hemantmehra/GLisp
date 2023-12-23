@@ -24,12 +24,11 @@ int main()
     std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
 
     std::shared_ptr<LISP::Object> obj = parser.parse(tokens);
-    compiler.eval(obj, env);
-    auto objects = compiler.get_bytecode();
+    std::string out_code = compiler.compile(obj, env);
+    std::cout << out_code << '\n';
 
-    for(auto obj: objects) {
-        std::cout << obj->to_string() << '\n';
-    }
+    // Compile asm using: nasm -felf64 out.asm
+    // link using: ld out.o -o out.bin
     
     return 0;
 }
