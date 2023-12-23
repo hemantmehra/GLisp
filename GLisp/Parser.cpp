@@ -1,9 +1,9 @@
 #include <iostream>
-#include <Interpreter/Assertion.h>
-#include <Interpreter/Parser.h>
-#include <Interpreter/Scaler.h>
-#include <Interpreter/Symbol.h>
-#include <Interpreter/Cons.h>
+#include <GLisp/Assertion.h>
+#include <GLisp/Parser.h>
+#include <GLisp/Scaler.h>
+#include <GLisp/Symbol.h>
+#include <GLisp/Cons.h>
 
 // #define TOKENIZER_DEBUG
 

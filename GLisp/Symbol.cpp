@@ -1,4 +1,4 @@
-#include <Interpreter/Symbol.h>
+#include <GLisp/Symbol.h>
 
 namespace LISP {
     std::string Symbol::name() const

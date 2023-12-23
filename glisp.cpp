@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Interpreter/Object.h>
+#include <GLisp/Object.h>
 
 int main()
 {

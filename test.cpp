@@ -1,13 +1,13 @@
 #include <iostream>
-#include <Interpreter/Assertion.h>
-#include <Interpreter/Scaler.h>
-#include <Interpreter/Symbol.h>
-#include <Interpreter/Cons.h>
-#include <Interpreter/Environment.h>
-#include <Interpreter/Interpreter.h>
-#include <Interpreter/PrimitiveProcedure.h>
-#include <Interpreter/Tokenizer.h>
-#include <Interpreter/Parser.h>
+#include <GLisp/Assertion.h>
+#include <GLisp/Scaler.h>
+#include <GLisp/Symbol.h>
+#include <GLisp/Cons.h>
+#include <GLisp/Environment.h>
+#include <GLisp/Interpreter.h>
+#include <GLisp/PrimitiveProcedure.h>
+#include <GLisp/Tokenizer.h>
+#include <GLisp/Parser.h>
 
 #define OBJECT_PTR std::shared_ptr<LISP::Object>
 #define OBJECT_PTR_CAST(x) std::static_pointer_cast<LISP::Object>(x)

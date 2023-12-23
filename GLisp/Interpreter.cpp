@@ -1,7 +1,7 @@
-#include <Interpreter/Cons.h>
-#include <Interpreter/Scaler.h>
-#include <Interpreter/Interpreter.h>
-#include <Interpreter/PrimitiveProcedure.h>
+#include <GLisp/Cons.h>
+#include <GLisp/Scaler.h>
+#include <GLisp/Interpreter.h>
+#include <GLisp/PrimitiveProcedure.h>
 
 #define CONS_PTR_CAST(x) std::dynamic_pointer_cast<Cons>(x)
 #define SCALER_PTR_CAST(x) std::dynamic_pointer_cast<Scaler>(x)

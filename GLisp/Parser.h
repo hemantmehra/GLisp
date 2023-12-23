@@ -4,8 +4,8 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <Interpreter/Tokenizer.h>
-#include <Interpreter/Object.h>
+#include <GLisp/Tokenizer.h>
+#include <GLisp/Object.h>
 
 namespace LISP {
     class Parser

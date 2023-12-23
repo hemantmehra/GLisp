@@ -2,8 +2,8 @@
 #define INTERPRETER_H
 
 #include <memory>
-#include <Interpreter/Object.h>
-#include <Interpreter/Environment.h>
+#include <GLisp/Object.h>
+#include <GLisp/Environment.h>
 
 namespace LISP {
     class Interpreter

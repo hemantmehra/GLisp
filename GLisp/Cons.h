@@ -3,7 +3,7 @@
 
 #include <string>
 #include <memory>
-#include <Interpreter/Object.h>
+#include <GLisp/Object.h>
 
 namespace LISP {
     class Cons : public Object

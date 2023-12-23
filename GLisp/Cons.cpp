@@ -1,6 +1,6 @@
 #include <memory>
-#include <Interpreter/Scaler.h>
-#include <Interpreter/Cons.h>
+#include <GLisp/Scaler.h>
+#include <GLisp/Cons.h>
 
 namespace LISP {
     Cons::Cons()

@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <unordered_map>
-#include <Interpreter/Object.h>
+#include <GLisp/Object.h>
 
 namespace LISP {
     class Environment

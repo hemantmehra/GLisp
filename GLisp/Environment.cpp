@@ -1,6 +1,6 @@
-#include <Interpreter/Assertion.h>
-#include <Interpreter/Environment.h>
-#include <Interpreter/Symbol.h>
+#include <GLisp/Assertion.h>
+#include <GLisp/Environment.h>
+#include <GLisp/Symbol.h>
 
 #define SYMBOL_PTR_CAST(x) std::dynamic_pointer_cast<Symbol>(x)
 

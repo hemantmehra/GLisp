@@ -1,4 +1,4 @@
-#include <Interpreter/Tokenizer.h>
+#include <GLisp/Tokenizer.h>
 
 namespace LISP {
     Token::Token(Type type) : m_type(type) {}

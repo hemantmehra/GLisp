@@ -1,4 +1,4 @@
-#include <Interpreter/PrimitiveProcedure.h>
+#include <GLisp/PrimitiveProcedure.h>
 
 namespace LISP {
     PrimitiveProcedure::PrimitiveProcedure(PrimitiveProcedure::Type type)

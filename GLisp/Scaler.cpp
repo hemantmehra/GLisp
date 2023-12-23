@@ -1,6 +1,6 @@
 #include <string>
-#include <Interpreter/Assertion.h>
-#include <Interpreter/Scaler.h>
+#include <GLisp/Assertion.h>
+#include <GLisp/Scaler.h>
 
 namespace LISP {
     Scaler::Type Scaler::type() const

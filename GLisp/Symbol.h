@@ -2,7 +2,7 @@
 #define SYMBOL_H
 
 #include <string>
-#include <Interpreter/Object.h>
+#include <GLisp/Object.h>
 
 namespace LISP {
     class Symbol : public Object

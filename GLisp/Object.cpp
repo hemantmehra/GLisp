@@ -1,4 +1,4 @@
-#include <Interpreter/Object.h>
+#include <GLisp/Object.h>
 
 namespace LISP {
     // std::string Object::to_string()
