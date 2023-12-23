@@ -67,15 +67,15 @@ namespace LISP {
             }
 
             ss << '\n';
-            
-            // EXIT asm code
-            ss << "    " << ";; EXIT" << '\n';
-            ss << "    " << "mov rax, 60" << '\n';
-            ss << "    " << "pop rdi" << '\n';
-            ss << "    " << "syscall" << '\n';
-
-            ss << '\n';
         }
+
+        // EXIT asm code
+        ss << "    " << ";; EXIT" << '\n';
+        ss << "    " << "mov rax, 60" << '\n';
+        ss << "    " << "pop rdi" << '\n';
+        ss << "    " << "syscall" << '\n';
+
+        ss << '\n';
 
         return ss.str();
     }

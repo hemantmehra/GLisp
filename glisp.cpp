@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <GLisp/Object.h>
 #include <GLisp/Compiler.h>
 #include <GLisp/PrimitiveProcedure.h>
@@ -25,10 +26,10 @@ int main()
 
     std::shared_ptr<LISP::Object> obj = parser.parse(tokens);
     std::string out_code = compiler.compile(obj, env);
-    std::cout << out_code << '\n';
 
-    // Compile asm using: nasm -felf64 out.asm
-    // link using: ld out.o -o out.bin
-    
+    std::ofstream out_asm("out.asm");
+    out_asm << out_code;
+    out_asm.close();
+
     return 0;
 }
