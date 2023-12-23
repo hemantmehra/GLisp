@@ -2,4 +2,4 @@
 build/
 out.asm
 out.bin
-out.o
+out

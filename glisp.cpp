@@ -15,13 +15,17 @@ int main()
     LISP::Compiler compiler;
     std::shared_ptr<LISP::Environment> env = std::make_shared<LISP::Environment>();
     OBJECT_PTR p_add = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Add));
+    OBJECT_PTR p_if = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::If));
+    OBJECT_PTR p_else = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::Else));
+    OBJECT_PTR p_endif = OBJECT_PTR_CAST(MAKE_PRIMITVE_PROCEDURE(LISP::PrimitiveProcedure::Type::EndIf));
 
     env->set_using_string("add", p_add);
+    env->set_using_string("if", p_if);
 
     LISP::Tokenizer tokenizer;
     LISP::Parser parser;
 
-    std::string code = "(add 23 1)";
+    std::string code = "(if 1 42 33)";
     std::vector<LISP::Token> tokens = tokenizer.tokenize(code);
 
     std::shared_ptr<LISP::Object> obj = parser.parse(tokens);
